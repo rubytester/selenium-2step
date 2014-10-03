@@ -7,11 +7,12 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-    config.vm.define :selenium do |selenium|
-        selenium.vm.box = "precise64"
-        selenium.vm.box_url = "http://files.vagrantup.com/precise64.box"
-        selenium.vm.network "forwarded_port", guest: 4444, host:4444
-        $script_selenium = <<SCRIPT
+  config.vm.define :selenium do |selenium|
+    selenium.vm.box     = "precise64"
+    selenium.vm.box_url = "http://files.vagrantup.com/precise64.box"
+    selenium.vm.network "forwarded_port", guest: 4444, host: 4444
+    selenium.vm.network "forwarded_port", guest: 5555, host: 5555
+    $script_selenium = <<SCRIPT
 echo ==== Create a selenium folder ====
 mkdir /usr/local/selenium
 echo ==== Installing dependencies, curl, wget, unzip ====
@@ -20,7 +21,7 @@ apt-get install wget -y
 apt-get install curl -y
 apt-get install unzip -y
 echo ==== Installing Java ====
-apt-get install openjdk-7-jre -y 
+apt-get install openjdk-7-jre -y
 apt-get install openjdk-7-jdk -y
 apt-get install ant -y
 echo ==== Installing firefox ====
@@ -47,6 +48,6 @@ cp /vagrant/selenium-node /etc/init.d/.
 update-rc.d selenium-node defaults
 service selenium-node start
 SCRIPT
-        selenium.vm.provision :shell, :inline => $script_selenium
-    end
+    selenium.vm.provision :shell, :inline => $script_selenium
+  end
 end
