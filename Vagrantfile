@@ -10,7 +10,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.define :selenium do |selenium|
         selenium.vm.box = "precise64"
         selenium.vm.box_url = "http://files.vagrantup.com/precise64.box"
-        selenium.vm.network "forwarded_port", guest: 4444, host:4444
+        selenium.vm.network "forwarded_port", guest: 4444, host:4444 #hub
+        selenium.vm.network "forwarded_port", guest: 5555, host: 5555 #node
+        selenium.vm.network "forwarded_port", guest: 5999, host: 5999 #vnc
         $script_selenium = <<SCRIPT
 echo ==== Create a selenium folder ====
 mkdir /usr/local/selenium
@@ -20,7 +22,7 @@ apt-get install wget -y
 apt-get install curl -y
 apt-get install unzip -y
 echo ==== Installing Java ====
-apt-get install openjdk-7-jre -y 
+apt-get install openjdk-7-jre -y
 apt-get install openjdk-7-jdk -y
 apt-get install ant -y
 echo ==== Installing firefox ====
@@ -33,7 +35,9 @@ mv *.deb /usr/local/selenium
 unzip /usr/local/selenium/*.zip -d /usr/local/selenium
 dpkg -i /usr/local/selenium/google-chrome*; sudo apt-get -f install -y
 echo ==== Setting up Xvfb ====
-apt-get install xvfb -y
+apt-get install x11vnc -y -q
+RUN apt-get install -y -q xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
+apt-get install xvfb -y -q
 cp /vagrant/Xvfb /etc/init.d/.
 update-rc.d Xvfb defaults
 service Xvfb start
@@ -46,6 +50,7 @@ service selenium-grid start
 cp /vagrant/selenium-node /etc/init.d/.
 update-rc.d selenium-node defaults
 service selenium-node start
+x11vnc -display :99 -N -forever &
 SCRIPT
         selenium.vm.provision :shell, :inline => $script_selenium
     end
