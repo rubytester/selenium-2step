@@ -35,13 +35,18 @@ mv firefox /opt/firefox-33.0.2 && \
 ln -s /opt/firefox-33.0.2/firefox /usr/bin/firefox
 
 echo ==== Installing chrome ====
-wget http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
+#wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-mv *.zip /usr/local/selenium
 mv *.deb /usr/local/selenium
-unzip /usr/local/selenium/*.zip -d /usr/local/selenium
 dpkg -i /usr/local/selenium/google-chrome*; sudo apt-get -f install -y
-echo ==== Setting up Xvfb ====
+
+
+echo ==== Installing chromedriver ====
+wget http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
+mv *.zip /usr/local/selenium
+unzip /usr/local/selenium/*.zip -d /usr/local/selenium
+
+
 apt-get install x11vnc -y -q
 RUN apt-get install -y -q xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
 apt-get install xvfb -y -q
