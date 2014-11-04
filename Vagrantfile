@@ -29,7 +29,11 @@ apt-get install openjdk-7-jre -y
 
 
 echo ==== Installing firefox ====
-apt-get install firefox -y
+wget http://ftp.mozilla.org/pub/mozilla.org/firefox/releases/33.0.2/linux-x86_64/en-US/firefox-33.0.2.tar.bz2  && \
+tar xjf firefox-33.0.2.tar.bz2 && \
+mv firefox /opt/firefox-33.0.2 && \
+ln -s /opt/firefox-33.0.2/firefox /usr/bin/firefox
+
 echo ==== Installing chrome ====
 wget http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
