@@ -1,18 +1,12 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
-# Author: Yves Hwang, 03.06.2014
-# http://macyves.wordpress.com
-
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-    config.vm.define :selenium do |selenium|
-        selenium.vm.box = "precise64"
-        selenium.vm.box_url = "http://files.vagrantup.com/precise64.box"
-        selenium.vm.network "forwarded_port", guest: 4444, host:4444 #hub
-        selenium.vm.network "forwarded_port", guest: 5555, host: 5555 #node
-        selenium.vm.network "forwarded_port", guest: 5999, host: 5999 #vnc
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.network "forwarded_port", guest: 4444, host: 4444 #hub
+  config.vm.network "forwarded_port", guest: 5555, host: 5555 #node
+  config.vm.network "forwarded_port", guest: 5999, host: 5999 #vnc
+
+
         $script_selenium = <<SCRIPT
 echo ==== Create a selenium folder ====
 mkdir /usr/local/selenium
@@ -52,6 +46,5 @@ update-rc.d selenium-node defaults
 service selenium-node start
 x11vnc -display :99 -N -forever &
 SCRIPT
-        selenium.vm.provision :shell, :inline => $script_selenium
-    end
+  config.vm.provision :shell, :inline => $script_selenium
 end
