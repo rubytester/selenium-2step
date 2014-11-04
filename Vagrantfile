@@ -36,7 +36,7 @@ cp /vagrant/Xvfb /etc/init.d/.
 update-rc.d Xvfb defaults
 service Xvfb start
 echo ==== Setting up selenium ====
-wget http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.1.jar
+wget http://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.1.jar
 mv *.jar /usr/local/selenium/.
 cp /vagrant/selenium-grid /etc/init.d/.
 update-rc.d selenium-grid defaults

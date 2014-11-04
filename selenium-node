@@ -23,7 +23,7 @@ STD_LOG=$LOG_DIR/${INTERNAL_NAME}_std.log
 TMP_DIR=$SELENIUM_HOME
 PID_FILE=$TMP_DIR/${INTERNAL_NAME}.pid
 JAVA=/usr/bin/java
-SELENIUM_APP="$SELENIUM_HOME/selenium-server-standalone-2.42.1.jar"
+SELENIUM_APP="$SELENIUM_HOME/selenium-server-standalone-2.43.1.jar"
 USER=selenium
 XDISPLAY="export DISPLAY=:99"
 CHROMEDRIVER_PATH=/usr/local/selenium/chromedriver
