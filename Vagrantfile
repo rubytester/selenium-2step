@@ -41,17 +41,13 @@ mv *.zip /usr/local/selenium
 unzip /usr/local/selenium/*.zip -d /usr/local/selenium
 
 
-echo ==== Setting up x11vnc ====
-apt-get install x11vnc -y -q
-RUN apt-get install -y -q xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
+echo ==== Setting up Xvfb and x11vnc ====
+apt-get install xvfb x11vnc -y -q
+apt-get install -y -q xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
 
-echo ==== Setting up Xvfb ====
-apt-get install xvfb -y -q
-
-# INIT for Xvfb (turn to upstart)
-cp /vagrant/Xvfb /etc/init.d/.
-update-rc.d Xvfb defaults
-service Xvfb start
+cp /vagrant/Xvfb.conf /etc/init/.
+cp /vagrant/x11vnc.conf /etc/init/.
+sudo initctl start Xvfb
 
 echo ==== Setting up selenium ====
 wget http://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.1.jar
@@ -67,12 +63,6 @@ service selenium-grid start
 cp /vagrant/selenium-node /etc/init.d/.
 update-rc.d selenium-node defaults
 service selenium-node start
-
-
-#echo ==== Starting vnc server ==== (make upstart from it)
-#1024x768x16
-#/usr/bin/x11vnc -display :99 -N -forever >/dev/null &2>1 &
-
 
 SCRIPT
   config.vm.provision :shell, :inline => $script_selenium
