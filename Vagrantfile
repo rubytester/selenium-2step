@@ -18,17 +18,8 @@ apt-get update -y
 apt-get install wget curl unzip -y
 
 
-
 echo ==== Installing Java ====
-#ORACLE JAVA
-#sudo add-apt-repository ppa:webupd8team/java
-#sudo apt-get update
-#sudo apt-get install oracle-java7-installer
-
-#OPEN JAVA
-apt-get install openjdk-7-jre -y
-#apt-get install openjdk-7-jdk -y
-#apt-get install ant -y
+apt-get install openjdk-7-jre-headless -y
 
 
 echo ==== Installing firefox ====
