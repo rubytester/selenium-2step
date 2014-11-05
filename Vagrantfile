@@ -2,8 +2,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/trusty64"
-  config.vm.network "forwarded_port", guest: 4444, host: 4444 #hub
-  config.vm.network "forwarded_port", guest: 5555, host: 5555 #node
+  config.vm.network "forwarded_port", guest: 4444, host: 4444
   config.vm.network "forwarded_port", guest: 5999, host: 5999 #vnc
 
 
