@@ -39,7 +39,7 @@ echo ==== Installing chromedriver ====
 wget http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
 mv *.zip /usr/local/selenium
 unzip /usr/local/selenium/*.zip -d /usr/local/selenium
-
+ln -s /usr/local/selenium/chromedriver /usr/bin/chromedriver
 
 echo ==== Setting up Xvfb and x11vnc ====
 apt-get install xvfb x11vnc -y -q
