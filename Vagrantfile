@@ -52,17 +52,8 @@ sudo initctl start Xvfb
 echo ==== Setting up selenium ====
 wget http://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.1.jar
 mv *.jar /usr/local/selenium/.
-
-#Run two jars, one for grid, one for hub. Why? let's try to register several versions of firefox
-#INIT for selenium-hub
-cp /vagrant/selenium-grid /etc/init.d/.
-update-rc.d selenium-grid defaults
-service selenium-grid start
-
-#INIT for selenium-node
-cp /vagrant/selenium-node /etc/init.d/.
-update-rc.d selenium-node defaults
-service selenium-node start
+cp /vagrant/selenium.conf /etc/init/.
+sudo initctl start selenium
 
 SCRIPT
   config.vm.provision :shell, :inline => $script_selenium
